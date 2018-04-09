@@ -9,8 +9,11 @@
 }
 
 .message-list {
+  display: flex;
   flex: 10 1;
+  flex-direction: column;
   overflow-y: scroll;
+  padding: 0 16px;
 }
 
 .messages {
