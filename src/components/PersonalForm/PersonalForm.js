@@ -10,9 +10,24 @@ export default class CardForm extends Component {
             <div>
                 <Title text="Персональная информация"/>
                 <div className="personal-form" data-test="personal-form">
-                    <input type="text" name="firstName" onChange={this.handleChangeForm} value={firstName} placeholder="Ваше имя" />
-                    <input type="text" name="lastName" onChange={this.handleChangeForm} value={lastName} placeholder="Ваша фамилия" />
-                    <input type="text" name="email" onChange={this.handleChangeForm} value={email} placeholder="Email" />
+                    <input
+                        type="text"
+                        name="firstName"
+                        onChange={this.handleChangeForm}
+                        value={firstName}
+                        placeholder="Ваше имя" />
+                    <input
+                        type="text"
+                        name="lastName"
+                        onChange={this.handleChangeForm}
+                        value={lastName}
+                        placeholder="Ваша фамилия" />
+                    <input
+                        type="text"
+                        name="email"
+                        onChange={this.handleChangeForm}
+                        value={email}
+                        placeholder="Email" />
                 </div>
             </div>
         )

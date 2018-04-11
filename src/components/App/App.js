@@ -13,26 +13,12 @@ export default class App extends Component {
         cardNumber: ''
     };
 
-    render() {
-        return (
-            <div className="container">
-                <div className="tab-panel">{this.renderSteps()}</div>
-                <div className="form-content">{this.renderForm()}</div>
-                <div className="button-panel">
-                    <button className="button-next"
-                            onClick={this.handleClickNextForm}
-                            disabled={!this.isFormCommitable()}>Next</button>
-                </div>
-            </div>
-        )
-    };
-
     handleClickNextForm = () => {
         this.setState({step: this.state.step + 1});
     };
 
     handleTabClick = (step) => {
-        this.setState({step: step});
+        this.setState({step});
     };
 
     handleChangeForm = (firstArg, secondArg) => {
@@ -64,9 +50,16 @@ export default class App extends Component {
 
         switch (step) {
             case 1:
-                return  <PersonalForm firstName={firstName} lastName={lastName} email={email} onChangeForm={this.handleChangeForm} />;
+                return  <PersonalForm
+                            firstName={firstName}
+                            lastName={lastName}
+                            email={email}
+                            onChangeForm={this.handleChangeForm} />;
             case 2:
-                return <CardForm cardNumber={cardNumber} onChangeForm={this.handleChangeForm} onChangeTimeOver={this.handleChangeTimeOver} />;
+                return <CardForm
+                            cardNumber={cardNumber}
+                            onChangeForm={this.handleChangeForm}
+                            onChangeTimeOver={this.handleChangeTimeOver} />;
             default:
                 return <p data-test="congratulations">Поздравляем!</p>;
         }
@@ -76,9 +69,47 @@ export default class App extends Component {
         const {step} = this.state;
 
         return [
-            <Step key="1" number={1} isClickable={step > 1} isSelected={step === 1} onClick={this.handleTabClick}>Personal information</Step>,
-            <Step key="2" number={2} isClickable={step > 2} isSelected={step === 2} onClick={this.handleTabClick}>Card information</Step>,
-            <Step key="3" number={3} isClickable={false} isSelected={step === 3} onClick={this.handleTabClick}>Finish</Step>
+            <Step
+                key="1"
+                number={1}
+                isClickable={step > 1}
+                isSelected={step === 1}
+                onClick={this.handleTabClick}>
+                Personal information
+            </Step>,
+            <Step
+                key="2"
+                number={2}
+                isClickable={step > 2}
+                isSelected={step === 2}
+                onClick={this.handleTabClick}>
+                Card information
+            </Step>,
+            <Step
+                key="3"
+                number={3}
+                isClickable={false}
+                isSelected={step === 3}
+                onClick={this.handleTabClick}>
+                Finish
+            </Step>
         ];
+    };
+
+    render() {
+        return (
+            <div className="container">
+                <div className="tab-panel">{this.renderSteps()}</div>
+                <div className="form-content">{this.renderForm()}</div>
+                <div className="button-panel">
+                    <button
+                        className="button-next"
+                        onClick={this.handleClickNextForm}
+                        disabled={!this.isFormCommitable()}>
+                        Next
+                    </button>
+                </div>
+            </div>
+        )
     };
 };
