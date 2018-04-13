@@ -30,7 +30,7 @@ const students = [
 
 async function main() {
   for (let student of students) {
-    await createHomeworkBranch(4, student);
+    await createHomeworkBranch(6, student);
   }
   await execPromise('git checkout master');
 }
