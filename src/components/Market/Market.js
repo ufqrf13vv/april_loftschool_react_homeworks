@@ -42,29 +42,39 @@ class Market extends Component {
     };
 
     ordersToFarm = () => {
-        this.props.moveOrderToFarm();
+        const {orders} = this.props.state;
+
+        this.props.moveOrderToFarm(orders[0]);
     };
 
     orderList = () => {
         const orders = this.props.state.orders;
 
-        orders.map(item => {
-            <Order
+        return orders.map(item => {
+            return <Order
                 key={item.id}
                 name={item.name}
                 price={item.price}
-                createdAt={item.createdAt} />
+                createdAt={item.createdAt}/>
         });
     };
 
     render() {
-        const { deliveryExpanse, profit, farmExpanse } = this.props.state;
+        const length = this.props.state.orders.length;
 
         return (
             <div className="market">
                 <h2>Новые заказы в магазине</h2>
-                <button className="new-orders__create-button" onClick={this.newOrder}>Создать заказ</button>
-                <button disabled>Отправить заказ на ферму</button>
+                <button
+                    className="new-orders__create-button"
+                    onClick={this.newOrder}>
+                    Создать заказ
+                </button>
+                <button
+                    disabled={!length}
+                    onClick={this.ordersToFarm}>
+                    Отправить заказ на ферму
+                </button>
                 <div className="order-list">{this.orderList()}</div>
             </div>
         )
