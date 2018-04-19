@@ -6,7 +6,7 @@ class Login extends Component {
     state = {
         email: '',
         password: '',
-        isCorrect: false
+        isNotCorrect: false
     };
 
     handleChange = e => {
@@ -18,12 +18,12 @@ class Login extends Component {
         const {email, password} = this.state;
         const authorize = authorizeUser(email, password);
 
-        this.setState({isCorrect: !authorize});
+        this.setState({isNotCorrect: !authorize});
     };
 
     render() {
         const {isAuthorized} = this.props;
-        const {isCorrect} = this.state;
+        const {isNotCorrect} = this.state;
 
         if (isAuthorized) {
             return <Redirect to="/"/>
@@ -40,10 +40,7 @@ class Login extends Component {
                         type="password"
                         name="password"
                         onChange={this.handleChange}/>
-                    {isCorrect
-                        ? <p className="error">Неверный логин и/или пароль</p>
-                        : null
-                    }
+                    {isNotCorrect && <p className="error">Неверный логин и/или пароль</p>}
                 </div>
                 <button onClick={this.handleClick}>Войти</button>
             </div>
