@@ -1,0 +1,14 @@
+.search {
+    margin-bottom: 40px;
+}
+
+.search__error {
+    font-size: 18px;
+    color: red;
+}
+
+.search__result {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}

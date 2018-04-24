@@ -1,17 +1,19 @@
 import { createActions } from 'redux-actions';
 
 const {
-    series: {
+    search: {
         request: getSeriesRequest,
         success: getSeriesSuccess,
         failure: getSeriesFailure
         }
     } = createActions({
-    SERIES: {
+    SEARCH: {
         REQUEST: null,
         SUCCESS: null,
         FAILURE: null
     }
+}, {
+    namespace: '_'
 });
 
 export {
