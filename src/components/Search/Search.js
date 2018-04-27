@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getSeriesRequest } from '../../actions/search';
+import { getIsLoading } from '../../reducers/search';
 import ShowPreview from '../ShowPreview';
+import Loader from '../Loader';
+import Error from '../Error';
 import './Search.css';
 
 class Search extends Component {
@@ -20,12 +23,14 @@ class Search extends Component {
 
     orderList = series => {
         return series.map(item => {
-            return <ShowPreview
-                key={item.id}
-                id={item.id}
-                name={item.name}
-                image={item.image.medium}
-                summary={item.summary}/>
+            return (
+                <ShowPreview
+                    key={item.id}
+                    id={item.id}
+                    name={item.name}
+                    image={item.image.medium}
+                    summary={item.summary}/>
+            )
         });
     };
 
@@ -44,8 +49,8 @@ class Search extends Component {
                         className="search__btn"
                         onClick={this.handleSearch}>Найти
                     </button>
-                    {isLoading && <p>Данные загружаются...</p>}
-                    {error && <p className="search__error">Произошла ошибка!!!</p>}
+                    <Loader loading={isLoading} />
+                    <Error isError={error} />
                 </div>
                 <div className="search__result t-search-result">
                     {this.orderList(series)}
@@ -56,7 +61,7 @@ class Search extends Component {
 }
 
 const mapStateToProps = state => ({
-    isLoading: state.search.isLoading,
+    isLoading: getIsLoading(state),
     error: state.search.error,
     series: state.search.series
 });

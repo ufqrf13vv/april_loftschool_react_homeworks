@@ -31,3 +31,5 @@ export default combineReducers({
     isLoading,
     error
 });
+
+export const getIsLoading = state => state.search.isLoading;

@@ -9,7 +9,7 @@ export default class ShowActor extends Component {
             <div className="show-page__actor">
                 <p>{name}</p>
                 <img src={image} alt={name}/>
-                <p>Дата рождения: {birthday ? birthday : 'Неизвестна'}</p>
+                <p>Дата рождения: {birthday || 'Неизвестна'}</p>
                 <a href={url}>Ссылка на сайт</a>
             </div>
         )

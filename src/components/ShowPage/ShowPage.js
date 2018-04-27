@@ -1,8 +1,11 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { showSeriesRequest } from '../../actions/show';
+import { getIsLoading } from '../../reducers/shows';
 import ShowActor from './ShowActor';
 import './ShowPage.css';
+import Loader from '../Loader';
+import Error from '../Error';
 
 class ShowPage extends PureComponent {
 
@@ -20,7 +23,7 @@ class ShowPage extends PureComponent {
                 name={actor.person.name}
                 birthday={actor.person.birthday}
                 image={actor.person.image.medium}
-                url={actor.person.url} />
+                url={actor.person.url}/>
         });
     };
 
@@ -28,27 +31,29 @@ class ShowPage extends PureComponent {
         const { isLoading, error, series } = this.props;
         const length = series.length;
 
-        if (length) {
+        if (!length) {
+            return null;
+        } else {
+            const { name, image, summary, _embedded } = series[0];
+
             return (
                 <div className="show-page">
-                    <h3>{series[0].name}</h3>
-                    <img src={series[0].image.medium} alt={series[0].name}/>
-                    <div className="show-page__description" dangerouslySetInnerHTML={{__html: series[0].summary}}/>
+                    <h3>{name}</h3>
+                    <img src={image.medium} alt={name}/>
+                    <div className="show-page__description" dangerouslySetInnerHTML={{__html: summary}}/>
                     <div className="show-page__actors t-person">
-                        {this.actorsList(series[0]._embedded.cast)}
+                        {this.actorsList(_embedded.cast)}
                     </div>
-                    {isLoading && <p>Данные загружаются...</p>}
-                    {error && <p>Произошла ошибка!!!</p>}
+                    <Loader loading={isLoading} />
+                    <Error isError={error} />
                 </div>
             )
         }
-
-        return null;
     }
 }
 
 const mapStateToProps = state => ({
-    isLoading: state.shows.isLoading,
+    isLoading: getIsLoading(state),
     error: state.shows.error,
     series: state.shows.series
 });

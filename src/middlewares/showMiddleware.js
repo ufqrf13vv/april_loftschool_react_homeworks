@@ -1,6 +1,11 @@
 import { showSeriesRequest, showSeriesSuccess, showSeriesFailure } from '../actions/show';
 import { show } from '../api';
 
+/**
+ *
+  * @param action.type
+ *  @result promise
+ */
 const showMiddleware = store => next => action => {
 
     if (action.type === showSeriesRequest.toString()) {
